@@ -10,7 +10,8 @@ import UIKit
 
 class ForecastTableViewController: UITableViewController {
     var uri = "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,fi&units=metric&APPID=";
-    var nodes: [WeatherData] = [];
+    var request: ForeCastRequest?;
+    var nodes: [WeatherDataNode] = [];
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.nodes.count;
@@ -18,6 +19,7 @@ class ForecastTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell");
+        cell!.imageView!.image = UIImage(named: nodes[indexPath.row].weather!.first!.icon!)
         return cell!;
     }
     
@@ -34,10 +36,23 @@ class ForecastTableViewController: UITableViewController {
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
         let resstr = String(data: data!, encoding: String.Encoding.utf8)
+        print(resstr!);
         
-        // Execute stuff in UI thread
-        DispatchQueue.main.async(execute: {() in
-            print(resstr!)
-        })
+        do {
+            let attempt = try JSONDecoder().decode(ForeCastRequest.self, from: data!);
+            
+            request = attempt;
+        } catch {
+            NSLog("ERROR");
+        }
+        
+        if let req = self.request {
+            self.nodes = req.list!;
+            
+            // Execute stuff in UI thread
+            DispatchQueue.main.async(execute: {() in
+                self.tableView.reloadData();
+            })
+        }
     }
 }

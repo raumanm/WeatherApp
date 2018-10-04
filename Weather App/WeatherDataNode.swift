@@ -6,13 +6,9 @@
 //  Copyright © 2018 Mikko Rauman. All rights reserved.
 //
 
-
 class WeatherDataNode: Decodable {
     var dt: Int?
-    var dt_text: String?
+    var dt_txt: String?
     var main: MainWeatherData?
-    var list: [WeatherData]?
-    var weather:[WeatherData]?
-    var name: String?
+    var weather: [WeatherData]?
 }
-

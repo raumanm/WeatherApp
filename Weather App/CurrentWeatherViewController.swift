@@ -9,7 +9,7 @@ import UIKit
 
 class CurrentWeatherViewController: UIViewController {
     var uri = "https://api.openweathermap.org/data/2.5/weather?q=Tampere,fi&units=metric&APPID=";
-    var weather: WeatherDataNode?;
+    var weather: CurrentWeatherRequest?;
     
     @IBOutlet weak var currentImage: UIImageView!
     @IBOutlet weak var locLabel: UILabel!
@@ -31,8 +31,12 @@ class CurrentWeatherViewController: UIViewController {
     }
     
     func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
+        let resstr = String(data: data!, encoding: String.Encoding.utf8);
+        print(resstr!);
+        
+
         do {
-            let attempt = try JSONDecoder().decode(WeatherDataNode.self, from: data!);
+            let attempt = try JSONDecoder().decode(CurrentWeatherRequest.self, from: data!);
             self.weather = attempt;
             
             // Execute stuff in UI thread
@@ -47,4 +51,10 @@ class CurrentWeatherViewController: UIViewController {
         }
     }
 }
+
+/*
+ 
+{"coord":{"lon":23.76,"lat":61.5},"weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],"base":"stations","main":{"temp":2.88,"pressure":1014,"humidity":60,"temp_min":2,"temp_max":4},"visibility":10000,"wind":{"speed":2.1,"deg":260},"clouds":{"all":75},"dt":1538666400,"sys":{"type":1,"id":5045,"message":0.0025,"country":"FI","sunrise":1538628022,"sunset":1538667920},"id":634964,"name":"Tampere","cod":200}
+ 
+ */
 
