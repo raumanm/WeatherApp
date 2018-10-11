@@ -66,7 +66,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" id="cMR-a8-4n0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" id="cMR-a8-4n0" customClass="ForecastTableViewCell" customModule="Weather_App" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cMR-a8-4n0" id="2jD-CV-o0f">
@@ -86,7 +86,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VF8-Yl-aOD">
-                                            <rect key="frame" x="52" y="22" width="68" height="16"/>
+                                            <rect key="frame" x="52" y="24.5" width="68" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                                         <constraint firstItem="1Pc-OZ-JxF" firstAttribute="leading" secondItem="4MH-Od-o0y" secondAttribute="trailing" constant="8" id="BnS-AW-oGX"/>
                                         <constraint firstItem="4MH-Od-o0y" firstAttribute="height" secondItem="2jD-CV-o0f" secondAttribute="height" id="GBy-40-PLl"/>
                                         <constraint firstItem="1Pc-OZ-JxF" firstAttribute="top" secondItem="2jD-CV-o0f" secondAttribute="top" id="JOs-ca-x2i"/>
-                                        <constraint firstItem="VF8-Yl-aOD" firstAttribute="top" secondItem="1Pc-OZ-JxF" secondAttribute="bottom" constant="1.5" id="UWN-b9-wKr"/>
+                                        <constraint firstItem="VF8-Yl-aOD" firstAttribute="top" secondItem="1Pc-OZ-JxF" secondAttribute="bottom" constant="4" id="UWN-b9-wKr"/>
                                         <constraint firstItem="VF8-Yl-aOD" firstAttribute="leading" secondItem="4MH-Od-o0y" secondAttribute="trailing" constant="8" id="atW-5Y-2U9"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VF8-Yl-aOD" secondAttribute="trailing" constant="20" symbolic="YES" id="hW5-Md-7Fk"/>
                                         <constraint firstItem="4MH-Od-o0y" firstAttribute="centerY" secondItem="2jD-CV-o0f" secondAttribute="centerY" id="ia3-c1-tG5"/>
@@ -104,6 +104,11 @@
                                         <constraint firstItem="4MH-Od-o0y" firstAttribute="leading" secondItem="2jD-CV-o0f" secondAttribute="leading" id="pyI-D1-Oqm"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="iconImage" destination="4MH-Od-o0y" id="DjS-ZQ-mCu"/>
+                                    <outlet property="lowerLabel" destination="VF8-Yl-aOD" id="hbp-lB-j15"/>
+                                    <outlet property="upperLabel" destination="1Pc-OZ-JxF" id="gaO-Lc-bAv"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -118,7 +123,7 @@
             </objects>
             <point key="canvasLocation" x="872.79999999999995" y="408.84557721139436"/>
         </scene>
-        <!--Cities-->
+        <!--Table View Controller-->
         <scene sceneID="U1M-Q9-5lI">
             <objects>
                 <tableViewController id="aD9-bp-hvQ" sceneMemberID="viewController">
@@ -141,12 +146,12 @@
                             <outlet property="delegate" destination="aD9-bp-hvQ" id="uNR-OF-qeC"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Cities" id="J9r-J0-qg2"/>
+                    <navigationItem key="navigationItem" id="imx-Aq-Kei"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zE-lU-fph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1654" y="409"/>
+            <point key="canvasLocation" x="2592.8000000000002" y="408.84557721139436"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Hde-um-rCp">
@@ -160,12 +165,31 @@
                     <connections>
                         <segue destination="n7f-61-vhw" kind="relationship" relationship="viewControllers" id="IEV-al-B0M"/>
                         <segue destination="iWi-4k-6wS" kind="relationship" relationship="viewControllers" id="Nqg-PU-i2l"/>
-                        <segue destination="aD9-bp-hvQ" kind="relationship" relationship="viewControllers" id="EMM-5s-dqJ"/>
+                        <segue destination="x4W-jQ-8RG" kind="relationship" relationship="viewControllers" id="EMM-5s-dqJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OG1-02-vUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="873" y="-442"/>
+        </scene>
+        <!--Cities-->
+        <scene sceneID="3se-Zb-QMo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="x4W-jQ-8RG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Cities" id="J9r-J0-qg2"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rvf-Xd-Cng">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aD9-bp-hvQ" kind="relationship" relationship="rootViewController" id="xeC-UI-auV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bHY-tV-o6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1653.5999999999999" y="408.84557721139436"/>
         </scene>
     </scenes>
     <resources>

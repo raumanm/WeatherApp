@@ -10,9 +10,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-
+    let temp = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0] + "/cache.txt";
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        do {
+            let data = NSKeyedArchiver.archivedData(withRootObject: DataHandler.state);
+            try data.write(to: URL(fileURLWithPath: temp));
+        } catch {
+            NSLog("Unable to Save application state");
+        }
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -31,6 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: temp));
+            let state = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! AppDataState
+            DataHandler.state = state;
+            NSLog("Loaded state with city of %s", state.currentCity);
+        } catch {
+            NSLog("Unable to load state");
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

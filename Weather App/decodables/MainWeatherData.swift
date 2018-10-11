@@ -8,6 +8,4 @@
 
 struct MainWeatherData: Decodable {
     var temp: Double?
-    var pressure: Int?
-    var humidity: Int?
 }

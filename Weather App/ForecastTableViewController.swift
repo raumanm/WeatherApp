@@ -8,51 +8,52 @@
 
 import UIKit
 
+class ForecastTableViewCell: UITableViewCell {
+    @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var upperLabel: UILabel!
+    @IBOutlet weak var lowerLabel: UILabel!
+}
+
 class ForecastTableViewController: UITableViewController {
-    var uri = "https://api.openweathermap.org/data/2.5/forecast?q=Tampere,fi&units=metric&APPID=";
-    var request: ForeCastRequest?;
-    var nodes: [WeatherDataNode] = [];
+    var weather: (String, [Weather])?;
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.nodes.count;
+        if let nod = weather {
+            return nod.1.count;
+        }
+        return 0;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell");
-        cell!.imageView!.image = UIImage(named: nodes[indexPath.row].weather!.first!.icon!)
+        if let forecastCell = cell as? ForecastTableViewCell {
+            if let weather = self.weather?.1[indexPath.row] {
+                forecastCell.iconImage.image = UIImage(named: weather.icon);
+                forecastCell.upperLabel.text = weather.description + "\t\t" +  String(weather.temp) + " °C";
+                forecastCell.lowerLabel.text = weather.timestamp;
+            }
+        }
         return cell!;
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        DataHandler.fetchUrl(uri: uri, handler: doneFetching)
+        DataHandler.fetchCurrent(handler: { (incoming: (String, [Weather])?)  in
+            if let inc = incoming {
+                self.weather = inc;
+                DispatchQueue.main.async(execute: {() in
+                    self.tableView.reloadData();
+                })
+            } else {
+                NSLog("ERROR");
+            }
+        }
+        );
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func doneFetching(data: Data?, response: URLResponse?, error: Error?) {
-        let resstr = String(data: data!, encoding: String.Encoding.utf8)
-        print(resstr!);
-        
-        do {
-            let attempt = try JSONDecoder().decode(ForeCastRequest.self, from: data!);
-            
-            request = attempt;
-        } catch {
-            NSLog("ERROR");
-        }
-        
-        if let req = self.request {
-            self.nodes = req.list!;
-            
-            // Execute stuff in UI thread
-            DispatchQueue.main.async(execute: {() in
-                self.tableView.reloadData();
-            })
-        }
     }
 }

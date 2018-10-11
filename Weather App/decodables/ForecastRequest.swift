@@ -7,5 +7,9 @@
 //
 
 class ForeCastRequest: Decodable {
-    var list: [WeatherDataNode]?;
+    var cod: String?
+    var message: Double?
+    var cnt: Int?
+    var list: [WeatherDataNode]?
+    
 }

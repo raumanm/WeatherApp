@@ -8,7 +8,7 @@
 
 class WeatherDataNode: Decodable {
     var dt: Int?
-    var dt_txt: String?
     var main: MainWeatherData?
     var weather: [WeatherData]?
+    var dt_txt: String?
 }
