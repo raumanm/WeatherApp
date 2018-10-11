@@ -36,9 +36,24 @@ class ForecastTableViewController: UITableViewController {
         return cell!;
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let city = weather?.0, city != DataHandler.state.currentCity {
+            updateView();
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        updateView();
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func updateView() {
         DataHandler.fetchCurrent(handler: { (incoming: (String, [Weather])?)  in
             if let inc = incoming {
                 self.weather = inc;
@@ -46,14 +61,14 @@ class ForecastTableViewController: UITableViewController {
                     self.tableView.reloadData();
                 })
             } else {
-                NSLog("ERROR");
+                self.weather = nil;
+                DispatchQueue.main.async(execute: {() in
+                    self.tableView.reloadData();
+                });
+                
+                self.present(DataHandler.alertUser(), animated: true, completion: nil);
             }
         }
         );
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

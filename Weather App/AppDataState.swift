@@ -18,7 +18,7 @@ struct Weather {
 class AppDataState: NSObject, NSCoding {
     var currentCity = "Tampere";
     var weatherData = [String : [Weather]]();
-    var locales: [String] = ["Tampere, Turku, London, Stockholm"];
+    var locales: [String] = ["Tampere", "Turku", "London", "Stockholm"];
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(weatherData, forKey: "weatherData");

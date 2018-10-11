@@ -123,10 +123,10 @@
             </objects>
             <point key="canvasLocation" x="872.79999999999995" y="408.84557721139436"/>
         </scene>
-        <!--Table View Controller-->
+        <!--City Select Table View Controller-->
         <scene sceneID="U1M-Q9-5lI">
             <objects>
-                <tableViewController id="aD9-bp-hvQ" sceneMemberID="viewController">
+                <tableViewController id="aD9-bp-hvQ" customClass="CitySelectTableViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="R6f-II-5WU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,14 +140,65 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCityCell" id="KnC-mf-4ya" customClass="CityAddTableViewCell" customModule="Weather_App" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KnC-mf-4ya" id="O76-cz-W9B">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tui-bN-CKF" customClass="PassableUIButton" customModule="Weather_App" customModuleProvider="target">
+                                            <rect key="frame" x="329" y="6" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="tui-bN-CKF" secondAttribute="height" multiplier="1:1" id="HC5-au-N0i"/>
+                                            </constraints>
+                                            <state key="normal" title="Add"/>
+                                        </button>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fdP-nS-Pqh">
+                                            <rect key="frame" x="16" y="6" width="305" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="tui-bN-CKF" firstAttribute="leading" secondItem="fdP-nS-Pqh" secondAttribute="trailing" constant="8" id="3Ya-7v-ged"/>
+                                        <constraint firstItem="tui-bN-CKF" firstAttribute="top" secondItem="O76-cz-W9B" secondAttribute="top" constant="6" id="4Bs-CH-QxZ"/>
+                                        <constraint firstItem="fdP-nS-Pqh" firstAttribute="leading" secondItem="O76-cz-W9B" secondAttribute="leading" constant="16" id="NiQ-Fn-M9T"/>
+                                        <constraint firstAttribute="bottom" secondItem="fdP-nS-Pqh" secondAttribute="bottom" constant="7.5" id="PXk-WB-gFU"/>
+                                        <constraint firstAttribute="trailing" secondItem="tui-bN-CKF" secondAttribute="trailing" constant="16" id="jac-4m-u9C"/>
+                                        <constraint firstItem="fdP-nS-Pqh" firstAttribute="top" secondItem="O76-cz-W9B" secondAttribute="top" constant="6" id="uBF-DB-tIn"/>
+                                        <constraint firstAttribute="bottom" secondItem="tui-bN-CKF" secondAttribute="bottom" constant="7.5" id="uRX-3n-K7X"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addButton" destination="tui-bN-CKF" id="5Hn-s9-2Ge"/>
+                                    <outlet property="cityName" destination="fdP-nS-Pqh" id="lQI-Jz-omY"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="aD9-bp-hvQ" id="isG-Y3-e9J"/>
                             <outlet property="delegate" destination="aD9-bp-hvQ" id="uNR-OF-qeC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="imx-Aq-Kei"/>
+                    <navigationItem key="navigationItem" id="imx-Aq-Kei">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" id="fMV-dN-ASY">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3ca-n6-mKU">
+                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editModeToggle:" destination="aD9-bp-hvQ" eventType="touchUpInside" id="zRV-Jr-QaV"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="navItem" destination="imx-Aq-Kei" id="L5H-km-e9P"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zE-lU-fph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

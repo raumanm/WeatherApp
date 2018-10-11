@@ -23,6 +23,21 @@ class CurrentWeatherViewController: UIViewController {
         locLabel.text! = ""
         tempLabel.text! = ""
         
+        updateView();
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let city = weather?.0, city != DataHandler.state.currentCity {
+            updateView();
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func updateView() {
         DataHandler.fetchCurrent(handler: { (incoming: (String, [Weather])?)  in
             if let inc = incoming {
                 self.weather = inc;
@@ -32,13 +47,16 @@ class CurrentWeatherViewController: UIViewController {
                     self.tempLabel.text = String(round(self.weather!.1.first!.temp*100.0)/100.0) + " °C"
                     self.currentImage.isHidden = false;
                 })
+            } else {
+                self.weather = nil;
+                DispatchQueue.main.async(execute: {() in
+                    self.currentImage.isHidden = true;
+                    self.locLabel.text! = ""
+                    self.tempLabel.text! = ""
+                });
+                self.present(DataHandler.alertUser(), animated: true, completion: nil);
             }
-            }
+        }
         );
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

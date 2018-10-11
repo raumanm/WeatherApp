@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class DataHandler {
     static var state = AppDataState();
@@ -46,6 +47,7 @@ class DataHandler {
                                 handler((city, list));
                             } catch {
                                 NSLog("ERROR");
+                                handler(nil);
                             }
                         }
             })
@@ -61,5 +63,12 @@ class DataHandler {
         let task = session.dataTask(with: url!, completionHandler: handler);
         
         task.resume();
+    }
+    
+    static func alertUser() -> UIAlertController {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong fetching for weather data", preferredStyle: .alert);
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: .default, handler: nil));
+        
+        return alert;
     }
 }
