@@ -23,3 +23,13 @@
 * Debugging
 * Add Ability to remove locales
 * Add GPS functionality
+
+## Release 3
+
+### What's done
+
+* Added weather by GPS coordinates
+* Locales editing now works fully
+* Fixed state saving
+* Added UI state saving
+* Added application icon
