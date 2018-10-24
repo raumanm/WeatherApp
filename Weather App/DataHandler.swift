@@ -39,7 +39,7 @@ class DataHandler {
                                 for node in attempt.list! {
                                     list.append(Weather(
                                         timestamp: node.dt_txt!,
-                                        description: node.weather!.first!.main!,
+                                        desc: node.weather!.first!.main!,
                                         icon: node.weather!.first!.icon!,
                                         temp: node.main!.temp!));
                                 }

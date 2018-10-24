@@ -205,6 +205,7 @@
 				TargetAttributes = {
 					D28C480621662A1C00C0733E = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -431,7 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "fi.tamk.mobile2.Weather-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -451,7 +452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "fi.tamk.mobile2.Weather-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

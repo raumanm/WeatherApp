@@ -29,7 +29,7 @@ class ForecastTableViewController: UITableViewController {
         if let forecastCell = cell as? ForecastTableViewCell {
             if let weather = self.weather?.1[indexPath.row] {
                 forecastCell.iconImage.image = UIImage(named: weather.icon);
-                forecastCell.upperLabel.text = weather.description + "\t\t" +  String(weather.temp) + " °C";
+                forecastCell.upperLabel.text = weather.desc + "\t\t" +  String(weather.temp) + " °C";
                 forecastCell.lowerLabel.text = weather.timestamp;
             }
         }
