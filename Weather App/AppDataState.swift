@@ -69,5 +69,13 @@ class AppDataState: NSObject, NSCoding {
         if let data = aDecoder.decodeObject(forKey: "weatherData") as? [String : [Weather]] {
             weatherData = data;
         }
+        
+        if let current = aDecoder.decodeObject(forKey: "currentCity") as? String {
+            currentCity = current;
+        }
+        
+        if let list = aDecoder.decodeObject(forKey: "locales") as? [String] {
+            locales = list;
+        }
     }
 }
