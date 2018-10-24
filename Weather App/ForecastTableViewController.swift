@@ -16,6 +16,8 @@ class ForecastTableViewCell: UITableViewCell {
 
 class ForecastTableViewController: UITableViewController {
     var weather: (String, [Weather])?;
+    var activityIndicator = UIActivityIndicatorView(style: .gray);
+
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let nod = weather {
@@ -46,6 +48,17 @@ class ForecastTableViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         updateView();
+        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false;
+        self.view.addSubview(activityIndicator);
+        
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 100),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 100)
+            ]);
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,19 +67,22 @@ class ForecastTableViewController: UITableViewController {
     }
     
     func updateView() {
+        activityIndicator.startAnimating();
+        
         DataHandler.fetchCurrent(handler: { (incoming: (String, [Weather])?)  in
             if let inc = incoming {
                 self.weather = inc;
                 DispatchQueue.main.async(execute: {() in
                     self.tableView.reloadData();
+                    self.activityIndicator.stopAnimating();
                 })
             } else {
                 self.weather = nil;
                 DispatchQueue.main.async(execute: {() in
                     self.tableView.reloadData();
+                    self.present(DataHandler.alertUser(), animated: true, completion: nil);
+                    self.activityIndicator.stopAnimating();
                 });
-                
-                self.present(DataHandler.alertUser(), animated: true, completion: nil);
             }
         }
         );
