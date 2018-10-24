@@ -29,18 +29,26 @@ class Weather: NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        if let timestamp = aDecoder.decodeObject(forKey: "timestamp") as? String,
-            let desc = aDecoder.decodeObject(forKey: "description") as? String,
-            let icon = aDecoder.decodeObject(forKey: "icon") as? String,
-            let temp = aDecoder.decodeObject(forKey: "temp") as? Double
-        {
+        if let timestamp = aDecoder.decodeObject(forKey: "timestamp") as? String {
             self.timestamp = timestamp;
-            self.desc = desc;
-            self.icon = icon;
-            self.temp = temp;
+        } else {
+            NSLog("failed ts");
         }
+        
+        if let desc = aDecoder.decodeObject(forKey: "description") as? String {
+            self.desc = desc;
+        } else {
+            NSLog("failed description");
+        }
+        
+        if let icon = aDecoder.decodeObject(forKey: "icon") as? String {
+            self.icon = icon;
+        } else {
+            NSLog("failed icon");
+        }
+        
+        self.temp = aDecoder.decodeDouble(forKey: "temp");
     }
-    
 }
 
 class AppDataState: NSObject, NSCoding {
@@ -52,7 +60,6 @@ class AppDataState: NSObject, NSCoding {
         aCoder.encode(currentCity, forKey: "currentCity");
         aCoder.encode(locales, forKey: "locales");
         aCoder.encode(weatherData, forKey: "weatherData");
-        
     }
     
     override init() {

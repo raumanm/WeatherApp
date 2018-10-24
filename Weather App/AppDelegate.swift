@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             let data = NSKeyedArchiver.archivedData(withRootObject: DataHandler.state);
             try data.write(to: URL(fileURLWithPath: temp));
+            NSLog("Saved State to \(temp)");
         } catch {
             NSLog("Unable to Save application state");
         }
@@ -37,11 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        NSLog("Attempting to load state from \(temp)");
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: temp));
-            let state = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! AppDataState
+            let state = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! AppDataState;
+            
             DataHandler.state = state;
             NSLog("Loaded state");
+            //DataHandler.debugPrint(state);
         } catch {
             NSLog("Unable to load state");
         }
@@ -55,6 +59,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
-}
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        NSLog("Should save App State?");
+        return true
+    }
+    
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        NSLog("Should load App State?");
+        return true
+    }}
 

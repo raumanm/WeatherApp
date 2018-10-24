@@ -95,4 +95,15 @@ class DataHandler {
         
         return alert;
     }
+    
+    static func debugPrint(_ state: AppDataState) {
+        NSLog("currentCity: \(state.currentCity)");
+        NSLog("locales: \(state.locales)");
+        for weather in state.weatherData {
+            NSLog("City: \(weather.key)");
+            for node in weather.value {
+                NSLog("ts: \(node.timestamp), icon: \(node.icon), temp: \(node.temp), desc: \(node.desc)");
+            }
+        }
+    }
 }
